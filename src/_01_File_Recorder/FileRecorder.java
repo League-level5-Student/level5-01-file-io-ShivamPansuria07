@@ -14,13 +14,13 @@ public class FileRecorder {
 	            // Get message from user
 	            System.out.print("Enter a message: ");
 	            String message = reader.readLine();
-
+	           
 	            // Create a FileWriter to write to the file
 	            FileWriter writer = new FileWriter("message.txt");
 
 	            // Write message to file
 	            writer.write(message);
-
+	            
 	            // Close the FileWriter
 	            writer.close();
 

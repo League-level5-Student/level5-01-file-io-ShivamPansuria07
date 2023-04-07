@@ -1,5 +1,7 @@
 package _02_File_Encrypt_Decrypt;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 public class FileDecryptor {
@@ -21,5 +23,15 @@ public class FileDecryptor {
 	 * Create a program that opens the file created by FileEncryptor and decrypts
 	 * the message, then display it to the user in a JOptionPane.
 	 */
-	FileWriter writer = new FileWriter("message.txt");
+	//FileWriter writer = new FileWriter("message.txt");
+	public static void main(String[] args) {
+		try {
+			FileReader f = new FileReader("src/_00_Intro_To_File_Input_and_Output/test.txt\"");
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
