@@ -1,6 +1,8 @@
 package _04_Directory_Iteration;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -10,18 +12,18 @@ public class DirectoryIterator {
 		 * The following is an example of how to list all of the files in a directory.
 		 * Once the program is running, the directory is chosen using the JFileChooser.
 		 */
-		JFileChooser jfc = new JFileChooser();
-		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		int returnVal = jfc.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File directory = jfc.getSelectedFile();
-			File[] files = directory.listFiles();
-			if(files != null) {
-				for(File f : files) {
-				  System.out.println(f.getAbsolutePath());
-				}
-			}
-		}
+//		JFileChooser jfc = new JFileChooser();
+//		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+//		int returnVal = jfc.showOpenDialog(null);
+//		if (returnVal == JFileChooser.APPROVE_OPTION) {
+//			File directory = jfc.getSelectedFile();
+//			File[] files = directory.listFiles();
+//			if(files != null) {
+//				for(File f : files) {
+//				  System.out.println(f.getAbsolutePath());
+//				}
+//			}
+//		}
 		
 		/*
 		 * Your task is to write a program that iterates through the src folder of this current Java Project. 
@@ -29,5 +31,33 @@ public class DirectoryIterator {
 		 * Be aware of possible directories inside of directories.
 		 * (e.g //Copyright © 2019 FirstName LastName)
 		 */
+		JFileChooser jfc = new JFileChooser();
+		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		int returnVal = jfc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File directory = jfc.getSelectedFile();
+			searchdirectory(directory);
+		}
+	}
+	static void searchdirectory(File directory) {
+		File[] files = directory.listFiles();
+		if(files != null) {
+			for(File f : files) {
+			if(f.isDirectory()) {
+				searchdirectory(f);
+			}else {
+				
+	            try {
+	            	FileWriter writer = new FileWriter(f.getAbsolutePath(), true);
+					writer.write("\n//Copyright © 2019 Shivam Pansuria");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            
+			}
+			 // System.out.println();
+			}
+		}
 	}
 }

@@ -2,8 +2,14 @@ package _03_To_Do_List;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +27,6 @@ public class ToDoList implements ActionListener{
 	 * 
 	 * When the remove task button is clicked:
 	 * 		Create a JOptionPane to prompt the user for which task to remove and take it off of the list.
-	 * 
 	 * When the save list button is clicked:
 	 * 		Save the list to a file
 	 * 
@@ -36,6 +41,7 @@ public class ToDoList implements ActionListener{
 	JButton view = new JButton();
 	JButton remove = new JButton();
 	JButton load = new JButton();
+	JButton save = new JButton();
 	ArrayList<String> arr = new ArrayList<String>();
 	public static void main(String[] args) {
 		ToDoList a = new ToDoList();
@@ -52,10 +58,10 @@ public class ToDoList implements ActionListener{
 		view.addActionListener(this);
 		remove.setText("remove list");
 		remove.addActionListener(this);
-		JButton save = new JButton();
+		
 		save.setText("save list");
 		save.addActionListener(this);
-		load.setText("loat list");
+		load.setText("load list");
 		frame.add(panel);
 		panel.add(add);
 		panel.add(view);
@@ -75,6 +81,31 @@ public class ToDoList implements ActionListener{
 		if(arg0.getSource().equals(view)) {
 			for (int i = 0; i < arr.size(); i++) {
 				System.out.println(arr.get(i));
+			}
+		}
+		
+		
+		if(arg0.getSource().equals(save)) {
+			FileWriter writer;
+			try {
+				writer = new FileWriter("output.txt");
+				for(String str: arr) {
+					  writer.write(str);
+					}
+					writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+		}
+		if(arg0.getSource().equals(load)) {
+String file = JOptionPane.showInputDialog("enter a file name");
+			try {
+				Files.readAllLines(new File(file).toPath(), Charset.defaultCharset());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if(arg0.getSource().equals(remove)) {
